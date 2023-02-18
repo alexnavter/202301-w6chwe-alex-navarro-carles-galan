@@ -1,6 +1,6 @@
-import "./loadEnvironment";
-import startServer from "./server/startServer";
+import "./loadEnvironment.js";
+import startServer from "./server/startServer.js";
 
-const port = process.env.PORT ?? 4001;
+const port = process.env.PORT ?? 4000;
 
-startServer(+port);
+await startServer(+port);
