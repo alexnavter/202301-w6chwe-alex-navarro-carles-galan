@@ -7,8 +7,14 @@ module.exports = {
   overrides: [
     {
       extends: ["xo-typescript", "prettier"],
-      files: ["*.ts", "*.tsx"],
-      rules: {},
+      files: ["*.ts"],
+      rules: { "@typescript-eslint/consistent-type-definitions": "off" },
+    },
+    {
+      files: ["src/**/models/**/*.ts"],
+      rules: {
+        "@typescript-eslint/naming-convention": "off",
+      },
     },
   ],
   parserOptions: {
@@ -16,6 +22,6 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
-    "no-implicit-coercion": "false",
+    "no-implicit-coercion": "off",
   },
 };
