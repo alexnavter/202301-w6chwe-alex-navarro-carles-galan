@@ -1,4 +1,6 @@
 import { type NextFunction, type Request, type Response } from "express";
+import { CustomError } from "../../CustomError/CustomError.js";
+import { Robot } from "../../database/models/Robot.js";
 
 export const getRobots = async (
   req: Request,
@@ -6,6 +8,16 @@ export const getRobots = async (
   next: NextFunction
 ) => {
   try {
-    res.status(200).json({ ping: "pong" });
-  } catch (error) {}
+    const robots = await Robot.find();
+
+    res.status(200).json({ robots });
+  } catch (error) {
+    const customError = new CustomError(
+      error as string,
+      500,
+      "Couldn't retrieve the robot"
+    );
+
+    next(customError);
+  }
 };
