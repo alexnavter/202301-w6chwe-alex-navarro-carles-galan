@@ -7,8 +7,8 @@
   "scripts": {
     "build": "tsc",
     "build:dev": "tsc -w",
-    "test:coverage": "jest test --coverage --watchAll",
-    "test": "jest test",
+    "test:coverage": "jest test --coverage --watchAll=false",
+    "test": "jest",
     "start": "node dist",
     "start:dev": "node -w dist",
     "prepare": "husky install"
