@@ -6,8 +6,4 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use("/robots", (req, res) => {
-  res.status(200).json({ pong: true });
-});
-
 export default app;
