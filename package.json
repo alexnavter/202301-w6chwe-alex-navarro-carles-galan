@@ -5,9 +5,10 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "build:dev": "tsc -w",
+    "test:coverage": "jest test --coverage --watchAll=false --passWithNoTests",
+    "test": "jest test --passWithNoTests",
     "start": "node dist",
     "start:dev": "node -w dist",
     "prepare": "husky install"
