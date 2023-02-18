@@ -1,5 +1,8 @@
 import { type NextFunction, type Request, type Response } from "express";
 import { CustomError } from "../../CustomError/CustomError";
+import createDebug from "debug";
+
+export const debug = createDebug("robots:server");
 
 export const notFoundError = (
   req: Request,
@@ -12,10 +15,12 @@ export const notFoundError = (
 };
 
 export const generalError = (
-  { statusCode, publicMessage }: CustomError,
+  error: CustomError,
   req: Request,
-  res: Response,
-  next: NextFunction
+  res: Response
 ) => {
-  res.status(statusCode || 500).json({ error: publicMessage || "Bad Getaway" });
+  debug(error.message);
+  res
+    .status(error.statusCode || 500)
+    .json({ error: error.publicMessage || "Endpoint not found" });
 };
