@@ -1,6 +1,8 @@
 import { type NextFunction, type Request, type Response } from "express";
 import { CustomError } from "../../CustomError/CustomError";
-import debug from "debug";
+import createDebug from "debug";
+
+export const debug = createDebug("robots:server");
 
 export const notFoundError = (
   req: Request,
