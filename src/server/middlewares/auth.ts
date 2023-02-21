@@ -1,41 +1,47 @@
-import "../../loadEnvironment.js";
-import { type NextFunction, type Request, type Response } from "express";
+import jwt from "jsonwebtoken";
+import { type NextFunction, type Response } from "express";
 import { CustomError } from "../../CustomError/CustomError.js";
-import jsonWebToken from "jsonwebtoken";
-import { Robot } from "../../database/models/Robot.js";
+import { type CustomJwtPayload, type CustomRequest } from "../../types";
 
-export const auth = async (req: Request, res: Response, next: NextFunction) => {
+const auth = async (req: CustomRequest, res: Response, next: NextFunction) => {
   if (!req.header("Authorization")) {
     const customError = new CustomError(
-      "Missing authorization",
+      "Missing authorization header",
       401,
-      "missing token"
+      "Missing token"
     );
 
     next(customError);
+
     return;
   }
 
-  if (!req.header("Authorization")?.includes("Bearer")) {
+  if (!req.header("Authorization")?.replace(/Bearer\s*/, "")) {
     const customError = new CustomError(
-      "Missing authorization",
+      "Missing authorization header",
       401,
-      "missing token"
+      "Missing token"
     );
 
     next(customError);
+
     return;
   }
+
+  const token = req.header("Authorization")?.replace(/Bearer\s*/, "");
 
   try {
-    const token = req.header("Authorization")?.replace(/^Bearer\s*/, "");
+    const { sub: ownerId } = jwt.verify(
+      token!,
+      process.env.JWT_SECRET!
+    ) as CustomJwtPayload;
 
-    const { sub: ownerId } = jsonWebToken.verify(token!, process.env.JWT!);
-
-    const robots = await Robot.find({ owner: ownerId });
-
-    res.status(200).json({ robots });
+    req.ownerId = ownerId;
   } catch (error) {
     next(error);
   }
+
+  next();
 };
+
+export default auth;

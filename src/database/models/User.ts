@@ -9,7 +9,7 @@ export const userSchema = new Schema({
   password: {
     type: String,
     required: true,
-    minLength: 8,
+    minLength: 9,
   },
 
   email: {
@@ -18,4 +18,6 @@ export const userSchema = new Schema({
   },
 });
 
-export const User = model("User", userSchema, "users");
+const User = model("User", userSchema, "users");
+
+export default User;

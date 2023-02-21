@@ -32,7 +32,7 @@ describe("Given a generalError middleware", () => {
       const status = 500;
       const error = new CustomError("Path not found", status, "Bad Getaway");
 
-      generalError(error, request, response as Response);
+      generalError(error, request, response as Response, next);
 
       expect(response.status).toHaveBeenCalledWith(status);
     });
