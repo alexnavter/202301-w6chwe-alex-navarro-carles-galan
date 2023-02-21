@@ -10,7 +10,7 @@
     "test:coverage": "jest test --coverage --watchAll=false",
     "test": "jest",
     "start": "node dist",
-    "start:dev": "node -w dist",
+    "start:dev": "node dist -w",
     "prepare": "husky install"
   },
   "keywords": [],
