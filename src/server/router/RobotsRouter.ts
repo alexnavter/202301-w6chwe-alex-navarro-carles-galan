@@ -3,4 +3,4 @@ import { getRobots } from "../controllers/RobotsControllers.js";
 
 export const robotsRouter = Router();
 
-robotsRouter.get("/robots", getRobots);
+robotsRouter.get("/", getRobots);
